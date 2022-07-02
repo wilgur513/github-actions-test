@@ -31,7 +31,7 @@ jobs:
         distribution: 'temurin'
         
     - name: Build
-      run: ./gradlew build
+      run: ./gradlew build --exclude-task test
       
     - name: Test
       run: ./gradlew test
