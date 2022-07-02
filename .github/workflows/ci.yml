@@ -36,14 +36,27 @@ jobs:
     - name: Test
       run: ./gradlew test
 
-    - name: Set Success Result
-      if: ${{ success() }}
-      run: echo "result=:large_green_circle:" >> $GITHUB_ENV
-
-    - name: Set Fail Result
-      if: ${{ failure() }}
-      run: echo "result=:red_circle:" >> $GITHUB_ENV
+    - name: Set Report Result
+      if: ${{ always() }}
+      run: |
+        if [ ${{ success() }} ]
+        then      
+          echo "result=:large_green_circle:" >> $GITHUB_ENV
+        else
+          echo "result=:red_circle:" >> $GITHUB_ENV
+        fi
       
+    - name: Set Report Title
+      if: ${{ always() }}
+      run: |
+        if [ ${{ github.event_name }} = 'push' ]
+        then
+          echo "title=Main 브랜치 Push" >> $GITHUB_ENV
+        elif [ ${{ github.event_name }} = 'pull_request' ]
+        then
+          echo "title=#${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}" >> $GITHUB_ENV
+        fi
+
     - name: Get Time
       if: ${{ always() }}
       id: time
@@ -64,7 +77,7 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": ":rocket: *#${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}*"
+                  "text": ":rocket: *${{ env.title }}*"
                 }
               },
               {
