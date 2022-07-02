@@ -27,7 +27,7 @@ runs:
           echo "link=https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}" >> $GITHUB_ENV
         elif [ ${{ github.event_name }} = 'pull_request' ]
         then
-          echo "title=${{ github.event.pull_request.title }}" >> $GITHUB_ENV
+          echo "title=#${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}" >> $GITHUB_ENV
           echo "link=${{ github.event.pull_request.html_url }}" >> $GITHUB_ENV
         fi
         echo "actions_link=https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}/checks" >> $GITHUB_ENV
@@ -75,13 +75,6 @@ runs:
                 "text": {
                   "type": "mrkdwn",
                   "text": "*Actions 링크 :* ${{ env.actions_link }}"
-                }
-              },
-              {
-                "type": "section",
-                "text": {
-                   "type": "mrkdwn",
-                   "text": "*PR 및 커밋 링크 :* ${{ env.link }}"
                 }
               }
             ]
