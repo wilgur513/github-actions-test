@@ -8,6 +8,10 @@
 name: CI
 
 on:      
+  push:
+    branches:
+      - 'main'
+
   pull_request:
     branches: 
       - 'main'
@@ -32,20 +36,68 @@ jobs:
     - name: Test
       run: ./gradlew test
       
-    - name: Notify
+    - name: Get Time
+      id: time
+      uses: nanzm/get-time-action@v1.1
+      with:
+        timeZone: 8
+        format: 'YYYY-MM-DD HH:mm:ss'
+
+    - name: Set Success Result
+      if: ${{ success() }}
+      run: echo "result=:large_green_circle:" >> $GITHUB_ENV
+
+    - name: Set Fail Result
+      if: ${{ failure() }}
+      run: echo "result=:large_red_circle:" >> $GITHUB_ENV
+
+    - name: Send custom JSON data to Slack workflow
       id: slack
       uses: slackapi/slack-github-action@v1.18.0
       with:
         payload: |
           {
-            "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
             "blocks": [
+              {
+                "type": "context",
+                "elements": [
+                  {
+                    "type": "image",
+                    "image_url": "https://github.githubassets.com/images/mona-loading-default.gif",
+                    "alt_text": "cute cat"
+                  },
+                  {
+                    "type": "mrkdwn",
+                    "text": "*CI 피드백 리포트*"
+                  }
+                ]
+              },
+              {
+                "type": "divider"
+              },
               {
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                  "text": "*날짜 :* ${{ steps.time.outputs.time }}"
                 }
+              },
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*결과 :* ${{ env.result }}"
+                }
+              },
+              {
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": "*링크 :* ${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                }
+              },
+              {
+                "type": "divider"
               }
             ]
           }
