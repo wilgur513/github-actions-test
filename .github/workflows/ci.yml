@@ -40,7 +40,7 @@ jobs:
       id: time
       uses: nanzm/get-time-action@v1.1
       with:
-        timeZone: 8
+        timeZone: 9
         format: 'YYYY-MM-DD HH:mm:ss'
 
     - name: Set Success Result
@@ -51,7 +51,8 @@ jobs:
       if: ${{ failure() }}
       run: echo "result=:large_red_circle:" >> $GITHUB_ENV
 
-    - name: Send custom JSON data to Slack workflow
+    - name: Notify To Slack
+      if: ${{ always() }}
       id: slack
       uses: slackapi/slack-github-action@v1.18.0
       with:
