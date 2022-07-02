@@ -64,7 +64,7 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": ":rocket: *CI 피드백 리포트(${{ github.event.pull_request.title }})*"
+                  "text": ":rocket: *#${{ github.event.pull_request.id }} ${{ github.event.pull_request.title }}*"
                 }
               },
               {
