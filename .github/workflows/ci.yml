@@ -42,5 +42,5 @@ jobs:
       with:
         slack_incoming_url: ${{ secrets.SLACK_WEBHOOK_URL }}
         status: ${{ job.status }}
-        event_name: github.event_name 
+        event_name: ${{ github.event_name }}
  
