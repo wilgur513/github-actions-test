@@ -23,7 +23,7 @@ runs:
       run: |
         if [ ${{ github.event_name }} = 'push' ]
         then
-          echo "title=${GITHUB_REF#refs/heads/}\ 브랜치 Push" >> $GITHUB_ENV
+          echo "title=${GITHUB_REF#refs/heads/} 브랜치 Push" >> $GITHUB_ENV
           echo "link=https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}" >> $GITHUB_ENV
         elif [ ${{ github.event_name }} = 'pull_request' ]
         then
