@@ -97,9 +97,9 @@ class BankControllerTest {
         assertThatThrownBy(() -> bankController.withdraw(new WithdrawRequest(1)))
             .isInstanceOf(NotEnoughBalanceException.class);
     }
-
-    @Test
-    void successTest() {
-        assertThat(true).isEqualTo(true);
-    }
+//
+//    @Test
+//    void successTest() {
+//        assertThat(true).isEqualTo(true);
+//    }
 }
