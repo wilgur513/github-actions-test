@@ -27,7 +27,7 @@ runs:
           echo "link=https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}" >> $GITHUB_ENV
         elif [ ${{ github.event_name }} = 'pull_request' ]
         then
-          echo "title=#${{ github.event.pull_request.number}} PR 생성" >> $GITHUB_ENV
+          echo "title=#${{ github.event.pull_request.number}} PR 생성(작성자 : ${{ github.event.pull_request.sender.login }})" >> $GITHUB_ENV
           echo "link=${{ github.event.pull_request.html_url }}" >> $GITHUB_ENV
         fi
         echo "actions_link=https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}/checks" >> $GITHUB_ENV
@@ -61,13 +61,6 @@ runs:
                 "text": {
                   "type": "mrkdwn",
                   "text": "*날짜 :* ${{ steps.time.outputs.time }}"
-                }
-              },
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "*작성자 :* ${{ github.event.pull_request.sender.login }}"
                 }
               },
               {
