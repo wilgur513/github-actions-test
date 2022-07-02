@@ -26,6 +26,4 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
     - name: Build
-      run: ./gradlew build --exclude-task test
-    - name: Unit Test
-      run: ./gradlew test
+      run: ./gradlew bootJar
