@@ -61,18 +61,11 @@ jobs:
           {
             "blocks": [
               {
-                "type": "context",
-                "elements": [
-                  {
-                    "type": "image",
-                    "image_url": "https://github.githubassets.com/images/mona-loading-default.gif",
-                    "alt_text": "cute cat"
-                  },
-                  {
-                    "type": "mrkdwn",
-                    "text": "*CI 피드백 리포트*"
-                  }
-                ]
+                "type": "section",
+                "text": {
+                  "type": "mrkdwn",
+                  "text": ":rocket: *CI 피드백 리포트*"
+                }
               },
               {
                 "type": "divider"
