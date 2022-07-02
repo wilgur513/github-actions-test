@@ -35,13 +35,6 @@ jobs:
       
     - name: Test
       run: ./gradlew test
-      
-    - name: Get Time
-      id: time
-      uses: nanzm/get-time-action@v1.1
-      with:
-        timeZone: 9
-        format: 'YYYY-MM-DD HH:mm:ss'
 
     - name: Set Success Result
       if: ${{ success() }}
@@ -49,8 +42,16 @@ jobs:
 
     - name: Set Fail Result
       if: ${{ failure() }}
-      run: echo "result=:large_red_circle:" >> $GITHUB_ENV
-
+      run: echo "result=:red_circle:" >> $GITHUB_ENV
+      
+    - name: Get Time
+      if: ${{ always() }}
+      id: time
+      uses: nanzm/get-time-action@v1.1
+      with:
+        timeZone: 9
+        format: 'YYYY-MM-DD HH:mm:ss'
+        
     - name: Notify To Slack
       if: ${{ always() }}
       id: slack
