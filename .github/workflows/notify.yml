@@ -16,6 +16,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Get Time
+        id: time
+        uses: nanzm/get-time-action@v1.1
+        with:
+          timeZone: 8
+          format: 'YYYY-MM-DD-HH-mm-ss'
+
       - name: Set Success Result
         if: ${{ success() }}
         run: echo "result=:large_green_circle:" >> $GITHUB_ENV
@@ -60,6 +67,13 @@ jobs:
                   "text": {
                     "type": "mrkdwn",
                     "text": "*링크 :* ${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*시간 :* ${{ steps.time.outputs.time }}"
                   }
                 }
               ]
