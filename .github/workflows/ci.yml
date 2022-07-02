@@ -36,9 +36,14 @@ jobs:
     - name: Test
       run: ./gradlew test
 
-    - name: Notify To Slack
-      if: ${{ always() }}
-      uses: ./.github/actions/slack-notify
+    - name: Send result to slack
+      uses: 8398a7/action-slack@v3
       with:
-        slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+        status: ${{ job.status }}
+        author_name: Github Action Test
+        fields: repo,message,commit,author,action,eventName,ref,workflow,job,took
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      if: always()
+
  
