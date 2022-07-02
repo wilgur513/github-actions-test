@@ -28,7 +28,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "***Hello***"
+                    "text": "*Hello*"
                   }
                 }
               ]
