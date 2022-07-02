@@ -19,7 +19,7 @@ runs:
     - name: Set Report Result
       shell: bash
       run: |
-        if [ ${{ inputs.status }} = 'success' ]
+        if [ ${{ job.status }} = 'success' ]
         then      
           echo "result=:large_green_circle:" >> $GITHUB_ENV
         else
