@@ -28,7 +28,7 @@ runs:
         if [ ${{ inputs.event_name }} = 'push' ]
         then
           echo "title=Main 브랜치 Push" >> $GITHUB_ENV
-        elif [ ${{ github.event_name }} = 'pull_request' ]
+        elif [ ${{ inputs.event_name }} = 'pull_request' ]
         then
           echo "title=#${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}" >> $GITHUB_ENV
         fi
@@ -83,5 +83,5 @@ runs:
             ]
           }
       env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_WEBHOOK_URL: ${{ inputs.slack_incoming_url }}
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
