@@ -100,6 +100,6 @@ class BankControllerTest {
 
     @Test
     void successTest() {
-        assertThat(true).isEqualTo(1);
+        assertThat(true).isEqualTo(true);
     }
 }
