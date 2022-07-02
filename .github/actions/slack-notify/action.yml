@@ -7,6 +7,10 @@ inputs:
     required: true
   slack_incoming_url:
     required: true
+  pr_num:
+    required: true
+  pr_title:
+    required: true
 
 runs:
   using: 'composite'
@@ -30,7 +34,7 @@ runs:
           echo "title=Main 브랜치 Push" >> $GITHUB_ENV
         elif [ ${{ inputs.event_name }} = 'pull_request' ]
         then
-          echo "title=#${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}" >> $GITHUB_ENV
+          echo "title=#${{ inputs.pr_num }} ${{ inputs.pr_title }}" >> $GITHUB_ENV
         fi
         
     - name: Get Time
