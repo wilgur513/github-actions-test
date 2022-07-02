@@ -33,9 +33,4 @@ class TransactionRepositoryTest {
                 tuple(lateTransaction.getId(), lateDateTime, 400, "DEPOSIT")
             );
     }
-    
-    @Test
-    void fail() {
-        assertThat(true).isFalse();
-    }
 }
