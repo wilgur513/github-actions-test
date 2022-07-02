@@ -17,6 +17,7 @@ runs:
 
   steps:
     - name: Set Report Result
+      shell: bash
       run: |
         if [ ${{ inputs.status }} = 'success' ]
         then      
@@ -26,6 +27,7 @@ runs:
         fi
       
     - name: Set Report Title
+      shell: bash
       run: |
         if [ ${{ inputs.event_name }} = 'push' ]
         then
