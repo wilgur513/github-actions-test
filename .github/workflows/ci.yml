@@ -39,10 +39,4 @@ jobs:
     - name: Notify To Slack
       if: ${{ always() }}
       uses: ./.github/actions/slack-notify
-      with:
-        slack_incoming_url: ${{ secrets.SLACK_WEBHOOK_URL }}
-        status: ${{ job.status }}
-        event_name: ${{ github.event_name }}
-        pr_num: ${{ github.event.pull_request.number }}
-        pr_title: ${{ github.event.pull_request.title }}
  
