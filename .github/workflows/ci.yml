@@ -88,13 +88,6 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "*작성자 :* ${{ github.event.pull_request.sender.login }}"
-                }
-              },
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
                   "text": "*PR 링크 :* ${{ github.event.pull_request.html_url }}"
                 }
               }
