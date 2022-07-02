@@ -17,7 +17,6 @@ runs:
 
   steps:
     - name: Set Report Result
-      if: ${{ always() }}
       run: |
         if [ ${{ inputs.status }} = 'success' ]
         then      
@@ -27,7 +26,6 @@ runs:
         fi
       
     - name: Set Report Title
-      if: ${{ always() }}
       run: |
         if [ ${{ inputs.event_name }} = 'push' ]
         then
@@ -38,7 +36,6 @@ runs:
         fi
         
     - name: Get Time
-      if: ${{ always() }}
       id: time
       uses: nanzm/get-time-action@v1.1
       with:
@@ -46,7 +43,6 @@ runs:
         format: 'YYYY-MM-DD HH:mm:ss'
         
     - name: Notify To Slack
-      if: ${{ always() }}
       id: slack
       uses: slackapi/slack-github-action@v1.18.0
       with:
