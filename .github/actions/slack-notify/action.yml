@@ -1,5 +1,9 @@
 name: 'slack-notify'
 
+inputs:
+  slack_webhook_url:
+    required: true
+
 runs:
   using: 'composite'
 
@@ -75,5 +79,5 @@ runs:
             ]
           }
       env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        SLACK_WEBHOOK_URL: ${{ inputs.slack_webhook_url }}
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
