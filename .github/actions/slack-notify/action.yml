@@ -1,17 +1,5 @@
 name: 'slack-notify'
 
-inputs:
-  status:
-    required: true
-  event_name:
-    required: true
-  slack_incoming_url:
-    required: true
-  pr_num:
-    required: true
-  pr_title:
-    required: true
-
 runs:
   using: 'composite'
 
@@ -29,11 +17,11 @@ runs:
     - name: Set Report Title And Link
       shell: bash
       run: |
-        if [ ${{ inputs.event_name }} = 'push' ]
+        if [ ${{ github.event_name }} = 'push' ]
         then
-          echo "title=Main 브랜치 Push" >> $GITHUB_ENV
+          echo "title=`${GITHUB_REF#refs/heads/}\` 브랜치 Push" >> $GITHUB_ENV
           echo "link=https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}/checks" >> $GITHUB_ENV
-        elif [ ${{ inputs.event_name }} = 'pull_request' ]
+        elif [ ${{ github.event_name }} = 'pull_request' ]
         then
           echo "title=#${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}" >> $GITHUB_ENV
           echo "link=${{ github.event.pull_request.html_url }}" >> $GITHUB_ENV
@@ -87,5 +75,5 @@ runs:
             ]
           }
       env:
-        SLACK_WEBHOOK_URL: ${{ inputs.slack_incoming_url }}
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
