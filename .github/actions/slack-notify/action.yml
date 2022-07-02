@@ -30,6 +30,7 @@ runs:
           echo "title=#${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}" >> $GITHUB_ENV
           echo "link=${{ github.event.pull_request.html_url }}" >> $GITHUB_ENV
         fi
+        echo "actions_link=https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}/checks" >> $GITHUB_ENV
         
     - name: Get Time
       id: time
@@ -73,7 +74,7 @@ runs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "*Actions 링크 :* https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}/checks"
+                  "text": "*Actions 링크 :* ${{ env.actions_link }}"
                 }
               },
               {
