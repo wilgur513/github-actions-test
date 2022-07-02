@@ -45,11 +45,11 @@ jobs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "text"
+                  "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
                 }
               }
             ]
           }
       env:
-        SLACK_WEBHOOK_URL: https://hooks.slack.com/services/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
+        SLACK_WEBHOOK_URL: '${{ SLACK_WEBHOOK_URL }}'
         SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
