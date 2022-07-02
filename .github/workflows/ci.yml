@@ -27,3 +27,7 @@ jobs:
         distribution: 'temurin'
     - name: Build
       run: ./gradlew bootJar
+    - name: Notify via Slack
+      uses: luchihoratiu/notify-via-slack@v1.0.0
+      with:
+        SLACK_WEBHOOK_URL: https://hooks.slack.com/services/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
