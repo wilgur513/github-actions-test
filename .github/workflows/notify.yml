@@ -18,11 +18,11 @@ jobs:
 
       - name: Set Success Result
         if: ${{ success() }}
-        run: echo "result=:large_green_ball:" >> $GITHUB_ENV
+        run: echo "result=:large_green_circle:" >> $GITHUB_ENV
         
       - name: Set Fail Result
         if: ${{ failure() }}
-        run: echo "result=:large_red_ball:" >> $GITHUB_ENV
+        run: echo "result=:large_red_circle:" >> $GITHUB_ENV
         
       - name: Send custom JSON data to Slack workflow
         id: slack
