@@ -59,6 +59,13 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
+                    "text": "*날짜 :* ${{ steps.time.outputs.time }}"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
                     "text": "*결과 :* ${{ env.result }}"
                   }
                 },
@@ -70,11 +77,7 @@ jobs:
                   }
                 },
                 {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "*시간 :* ${{ steps.time.outputs.time }}"
-                  }
+                  "type": "divider"
                 }
               ]
             }
