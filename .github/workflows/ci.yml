@@ -36,76 +36,11 @@ jobs:
     - name: Test
       run: ./gradlew test
 
-    - name: Set Report Result
-      if: ${{ always() }}
-      run: |
-        if [ ${{ job.status }} = 'success' ]
-        then      
-          echo "result=:large_green_circle:" >> $GITHUB_ENV
-        else
-          echo "result=:red_circle:" >> $GITHUB_ENV
-        fi
-      
-    - name: Set Report Title
-      if: ${{ always() }}
-      run: |
-        if [ ${{ github.event_name }} = 'push' ]
-        then
-          echo "title=Main 브랜치 Push" >> $GITHUB_ENV
-        elif [ ${{ github.event_name }} = 'pull_request' ]
-        then
-          echo "title=#${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}" >> $GITHUB_ENV
-        fi
-
-    - name: Get Time
-      if: ${{ always() }}
-      id: time
-      uses: nanzm/get-time-action@v1.1
-      with:
-        timeZone: 9
-        format: 'YYYY-MM-DD HH:mm:ss'
-        
     - name: Notify To Slack
       if: ${{ always() }}
-      id: slack
-      uses: slackapi/slack-github-action@v1.18.0
+      uses: ./.github/actions/slack-notify
       with:
-        payload: |
-          {
-            "blocks": [
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": ":rocket: *${{ env.title }}*"
-                }
-              },
-              {
-                "type": "divider"
-              },
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "*날짜 :* ${{ steps.time.outputs.time }}"
-                }
-              },
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "*결과 :* ${{ env.result }}"
-                }
-              },
-              {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "*PR 링크 :* ${{ github.event.pull_request.html_url }}"
-                }
-              }
-            ]
-          }
-      env:
-        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+        slack_incoming_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+        status: ${{ job.status }}
+        event_name: github.event_name 
+ 
