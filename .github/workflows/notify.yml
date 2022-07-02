@@ -22,11 +22,8 @@ jobs:
         with:
           payload: |
             {
-              "type": "section",
-              "text": {
-                "type": "mrkdwn",
-                "text": "GitHub Action build result: ${{ job.status }}\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
-              }
+              "type": "mrkdwn",
+              "text": "CI 결과"
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
