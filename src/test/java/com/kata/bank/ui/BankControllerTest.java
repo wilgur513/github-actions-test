@@ -103,8 +103,8 @@ class BankControllerTest {
         assertThat(true).isTrue();
     }
 
-    @Test
-    void failTest() {
-        assertThat(true).isFalse();
-    }
+//    @Test
+//    void failTest() {
+//        assertThat(true).isFalse();
+//    }
 }
