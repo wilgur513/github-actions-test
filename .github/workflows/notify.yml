@@ -22,8 +22,16 @@ jobs:
         with:
           payload: |
             {
-              "type": "mrkdwn",
-              "text": "***CI 결과***"
+              "text": "CI 결과",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "***Hello***"
+                  }
+                }
+              ]
             }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
