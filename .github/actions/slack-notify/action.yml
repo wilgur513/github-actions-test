@@ -24,7 +24,7 @@ runs:
         if [ ${{ github.event_name }} = 'push' ]
         then
           echo "title=${GITHUB_REF#refs/heads/}\ 브랜치 Push" >> $GITHUB_ENV
-          echo "link=https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}/checks" >> $GITHUB_ENV
+          echo "link=https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}" >> $GITHUB_ENV
         elif [ ${{ github.event_name }} = 'pull_request' ]
         then
           echo "title=#${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}" >> $GITHUB_ENV
@@ -73,7 +73,14 @@ runs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "*링크 :* ${{ env.link }}"
+                  "text": "*Actions 링크 :* https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}/checks"
+                }
+              },
+              {
+                "type": "section",
+                "text": {
+                   "type": "mrkdwn",
+                   "text": "*PR 및 커밋 링크 :* ${{ env.link }}"
                 }
               }
             ]
