@@ -39,4 +39,6 @@ jobs:
     - name: Notify To Slack
       if: ${{ always() }}
       uses: ./.github/actions/slack-notify
+      with:
+        slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
  
