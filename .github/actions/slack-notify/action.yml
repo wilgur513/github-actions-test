@@ -26,15 +26,17 @@ runs:
           echo "result=:red_circle:" >> $GITHUB_ENV
         fi
       
-    - name: Set Report Title
+    - name: Set Report Title And Link
       shell: bash
       run: |
         if [ ${{ inputs.event_name }} = 'push' ]
         then
           echo "title=Main 브랜치 Push" >> $GITHUB_ENV
+          echo "link=https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}/checks" >> $GITHUB_ENV
         elif [ ${{ inputs.event_name }} = 'pull_request' ]
         then
-          echo "title=#${{ inputs.pr_num }} ${{ inputs.pr_title }}" >> $GITHUB_ENV
+          echo "title=#${{ github.event.pull_request.number }} ${{ github.event.pull_request.title }}" >> $GITHUB_ENV
+          echo "link=${{ github.event.pull_request.html_url }}" >> $GITHUB_ENV
         fi
         
     - name: Get Time
@@ -79,7 +81,7 @@ runs:
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": "*PR 링크 :* ${{ github.event.pull_request.html_url }}"
+                  "text": "*링크 :* ${{ env.link }}"
                 }
               }
             ]
