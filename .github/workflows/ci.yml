@@ -36,11 +36,11 @@ jobs:
     - name: Test
       run: ./gradlew test
 
-    - name: Send result to slack
+    - name: Notify To Slack
       uses: 8398a7/action-slack@v3
       with:
         status: ${{ job.status }}
-        author_name: Github Action Test
+        author_name: Github Actions Report
         fields: commit,author,eventName,workflow,took,pullRequest
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
