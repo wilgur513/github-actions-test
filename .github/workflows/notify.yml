@@ -16,19 +16,50 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Set Success Result
+        if: ${{ success() }}
+        run: echo "result=:large_green_ball:" >> $GITHUB_ENV
+        
+      - name: Set Fail Result
+        if: ${{ failure() }}
+        run: echo "result=:large_red_ball:" >> $GITHUB_ENV
+        
       - name: Send custom JSON data to Slack workflow
         id: slack
         uses: slackapi/slack-github-action@v1.18.0
         with:
           payload: |
             {
-              "text": "CI 결과",
               "blocks": [
+                {
+                  "type": "context",
+                  "elements": [
+                    {
+                      "type": "image",
+                      "image_url": "https://github.githubassets.com/images/mona-loading-default.gif",
+                      "alt_text": "cute cat"
+                    },
+                    {
+                      "type": "mrkdwn",
+                      "text": "*CI 피드백 리포트*"
+                    }
+                  ]
+                },
+                {
+                  "type": "divider"
+                },
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "*Hello*"
+                    "text": "*결과 :* ${{ env.result }}"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "*링크 :* ${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
                   }
                 }
               ]
