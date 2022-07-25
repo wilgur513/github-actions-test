@@ -36,6 +36,6 @@ class TransactionRepositoryTest {
 
     @Test
     void test() {
-        assertThat(false).isFalse();
+        assertThat(true).isTrue();
     }
 }
